@@ -23,11 +23,14 @@ def week_of_year():
 
 
 
-def date_list():
+def date_list(error_rate):
     """
     本周日期列表
+    info为True时，获取下周
     """
     now = datetime.now()
+    if error_rate:
+        now += timedelta(days=int(error_rate))
     this_week_start = now - timedelta(days=now.weekday())
     this_week_end = now + timedelta(days=6-now.weekday())
     return [this_week_start+timedelta(days=i) for i in range(5)]
@@ -42,11 +45,11 @@ def write_unordered_list(f, template=None):
     f.write("\n")
 
 
-def write_template():
+def write_template(error_rate=None):
     year, weekly = week_of_year()
     filename = "./data/%s_%s.md" % (year, weekly)
 
-    this_week_date_list = date_list()
+    this_week_date_list = date_list(error_rate)
     with open(filename, "w") as f:
         f.write("# %s年第%s周\n" % (year, weekly))
 
@@ -62,7 +65,9 @@ def write_template():
 
 
 def main():
-    write_template()
+    import sys
+    error_date = sys.argv[1]
+    write_template(error_date)
     
 
 if __name__ == "__main__":
