@@ -40,8 +40,8 @@ def write_unordered_list(f, template=None):
     """param: <class '_io.TextIOWrapper'>"""
     if not template:
         template = ""
-    f.write("* STELA-4 %s\n" %template)
-    f.write("* STELA-4 %s\n" %template)
+    f.write("* %s\n" %template)
+    f.write("* %s\n" %template)
     f.write("\n")
 
 
@@ -56,8 +56,8 @@ def write_template(error_rate=None):
         f.write("### 上周总结：\n")
         write_unordered_list(f, template="【0%-100%】")
         f.write("### 下周计划：\n")
-        write_unordered_list(f, template="【0%-100%】")
-        f.write("\n\n")
+        write_unordered_list(f, template="")
+        f.write("\n")
 
         for i in this_week_date_list:
             f.write("#### %s.%s.%s 今日工作:\n" % (i.year, i.month, i.day))
